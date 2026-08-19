@@ -1,27 +1,24 @@
-# Kenya Children Assembly — Digital Chamber
+# KCA — Kenya Children Assembly 🇰🇪
 
-A premium, Assembly-first digital platform for the **Kenya Children Assembly (NCA)**.
+A premium, Assembly-first digital platform for the **KCA — Kenya Children Assembly**.
 
 ## Vision
 
-NCA is designed as a digital civic institution rather than a brochure website: a public chamber for representation, Assembly business, leadership, county voices, sessions, resources and safe participation.
+KCA is designed as a digital civic institution rather than a brochure website: a dignified public chamber for representation, Assembly business, leadership, county voices, sessions, resources and safe participation.
 
 ## Modern stack
 
 - **Next.js App Router** — full-stack React foundation and Vercel-native deployment
 - **TypeScript** — typed application architecture
-- **Tailwind CSS v4** — modern design system and responsive styling
-- **shadcn/ui architecture** — composable, accessible UI direction
+- **Tailwind CSS v4** — modern responsive design system
 - **Lucide React** — consistent interface iconography
 - **Supabase-ready** — PostgreSQL, authentication and Row Level Security foundation for the production data layer
 - **PWA** — installable experience with offline shell
 - **Vercel** — production hosting and preview deployments
 
-Next.js + Tailwind + shadcn/ui is a current supported workflow, and Supabase provides an SSR-compatible integration for Next.js authentication and server/client data access. citeturn0search2turn0search3
-
 ## Product areas
 
-- Assembly chamber
+- National Assembly chamber
 - Motions & resolutions
 - Questions & statements
 - Debates & public records
@@ -61,11 +58,13 @@ The public site deliberately does **not** claim that sensitive safeguarding subm
 
 ## Deployment
 
-The repository is structured for **Vercel**. The project should be deployed from the repository root; no static `site/` output directory is required.
+The repository is structured for **Vercel**. Deploy from the repository root; no static `site/` output directory is required.
 
 ## Brand
 
-The Kenya Children Assembly emblem is used as the primary visual identity across the header, hero, leadership area, footer, favicon and PWA manifest.
+The repository currently contains `logo.jpg`, and the website now uses that supplied logo consistently across the navigation, hero chamber, leadership area, footer, favicon and PWA manifest.
+
+> If `logo.png` is added to `public/`, the branding can be switched to that file directly.
 
 ---
 
