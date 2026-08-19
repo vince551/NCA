@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import InstallPWA from "./InstallPWA";
 
 export const metadata: Metadata = {
   title: "KCA — Kenya Children Assembly",
@@ -14,7 +15,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en-KE">
       <body className="antialiased">
         {children}
-        <script dangerouslySetInnerHTML={{ __html: `if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));}` }} />
+        <InstallPWA />
+        <script dangerouslySetInnerHTML={{ __html: `if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(()=>{}));}` }} />
       </body>
     </html>
   );
