@@ -1,0 +1,14 @@
+{
+  "name": "Kenya Children Assembly — Sauti Yako",
+  "short_name": "NCA",
+  "description": "The digital platform for the Kenya Children Assembly: representation, rights, leadership and participation.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#07120f",
+  "theme_color": "#08783f",
+  "lang": "en-KE",
+  "categories": ["education", "government", "social"],
+  "icons": [{"src":"./assets/logo-placeholder.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
