@@ -3,7 +3,6 @@ const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
 $('#year').textContent = new Date().getFullYear();
 
-// Mobile navigation
 const menuToggle = $('#menuToggle');
 const nav = $('#mainNav');
 menuToggle?.addEventListener('click', () => {
@@ -18,21 +17,16 @@ $$('#mainNav a').forEach(link => link.addEventListener('click', () => {
 }));
 
 // Assembly tabs
-$$('.assembly-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    $$('.assembly-tab').forEach(t => {
-      t.classList.remove('active');
-      t.setAttribute('aria-selected', 'false');
-    });
-    $$('[data-content]').forEach(panel => panel.classList.add('hidden'));
-    tab.classList.add('active');
-    tab.setAttribute('aria-selected', 'true');
-    const panel = $(`#${tab.dataset.panel}`);
-    if (panel) panel.classList.remove('hidden');
+$$('.assembly-tab').forEach(tab => tab.addEventListener('click', () => {
+  $$('.assembly-tab').forEach(t => {
+    t.classList.toggle('active', t === tab);
+    t.setAttribute('aria-selected', String(t === tab));
   });
-});
+  $$('[data-content]').forEach(panel => panel.classList.add('hidden'));
+  $(`#${tab.dataset.panel}`)?.classList.remove('hidden');
+}));
 
-// Lightweight accessible modal
+// Accessible modal
 const modal = $('#modal');
 const modalTitle = $('#modalTitle');
 const modalText = $('#modalText');
@@ -52,14 +46,11 @@ $$('[data-close]').forEach(el => el.addEventListener('click', closeModal));
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
 });
-$('#directoryButton')?.addEventListener('click', () => openModal(
-  'Leadership directory',
-  'The public directory is ready for verified Assembly records. Connect an authenticated backend before publishing names, roles or contact details.'
-));
-$('#speakButton')?.addEventListener('click', () => openModal(
-  'Safe conversation',
-  'This public demo does not transmit sensitive reports. A production version should connect this area to a verified safeguarding and reporting workflow with strict access controls.'
-));
+
+$('#directoryButton')?.addEventListener('click', () => openModal('Leadership directory', 'The public directory is ready for verified Assembly records. Connect an authenticated backend before publishing names, roles or contact details.'));
+$('#countyButton')?.addEventListener('click', () => openModal('County directory', 'The 47-county directory is a platform module ready to connect to verified county Assembly records.'));
+$('#speakButton')?.addEventListener('click', () => openModal('Safe conversation', 'This public demo does not transmit sensitive reports. A production version should connect this area to a verified safeguarding and reporting workflow with strict access controls.'));
+$$('[data-business]').forEach(button => button.addEventListener('click', () => openModal(button.dataset.business, 'This Assembly business module is ready for verified records, publication status, search and public outcomes once the backend is connected.')));
 
 // Resource search and filters
 const search = $('#resourceSearch');
@@ -67,7 +58,7 @@ const resources = $$('.resource');
 const filters = $$('.filter');
 let activeFilter = 'all';
 function filterResources() {
-  const query = search.value.trim().toLowerCase();
+  const query = search?.value.trim().toLowerCase() || '';
   resources.forEach(card => {
     const categoryMatch = activeFilter === 'all' || card.dataset.category === activeFilter;
     const textMatch = !query || card.textContent.toLowerCase().includes(query);
@@ -82,7 +73,7 @@ filters.forEach(filter => filter.addEventListener('click', () => {
   filterResources();
 }));
 
-// Real install experience for supported browsers
+// PWA install experience
 let deferredPrompt;
 function showInstallButton() {
   if ($('#installApp')) return;
@@ -113,40 +104,36 @@ window.addEventListener('appinstalled', () => {
   $('#installApp')?.remove();
 });
 
-// Reveal sections/cards as they enter the viewport
-const revealTargets = $$('.section-head, .feature-card, .rights-grid article, .event, .resource, .leadership-card, .speak-card, .assembly-layout');
+// Reveal content as it enters the viewport
+const revealTargets = $$('.section-head, .assembly-card, .business-card, .rights-grid article, .event, .resource, .leadership-card, .speak-card, .assembly-layout, .county-grid, .assembly-notice');
 if ('IntersectionObserver' in window) {
   revealTargets.forEach(element => element.classList.add('reveal'));
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.08 });
+  const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+      observer.unobserve(entry.target);
+    }
+  }), { threshold: 0.08 });
   revealTargets.forEach(element => observer.observe(element));
-} else {
-  revealTargets.forEach(element => element.classList.add('revealed'));
-}
+} else revealTargets.forEach(element => element.classList.add('revealed'));
 
-// Highlight the current section in the navigation
+// Current section navigation
 const navLinks = $$('#mainNav a[href^="#"]');
 const sections = navLinks.map(link => $(link.getAttribute('href'))).filter(Boolean);
 if ('IntersectionObserver' in window) {
   const navObserver = new IntersectionObserver(entries => {
-    const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    const visible = entries.filter(entry => entry.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
     if (!visible) return;
     navLinks.forEach(link => link.classList.toggle('current', link.getAttribute('href') === `#${visible.target.id}`));
-  }, { rootMargin: '-35% 0px -55% 0px', threshold: [0, 0.25, 0.6] });
+  }, { rootMargin: '-35% 0px -55% 0px', threshold: [0, .25, .6] });
   sections.forEach(section => navObserver.observe(section));
 }
 
-// Reconstruct the supplied NCA emblem from repository-safe chunks.
+// Reconstruct the supplied emblem from repository-safe chunks. The SVG fallback remains visible if loading fails.
 async function loadLogo() {
   const parts = ['aa', 'ab', 'ac', 'ad', 'ae', 'af'];
   try {
-    const chunks = await Promise.all(parts.map(part => fetch(`./assets/logo/chunk_${part}.txt`).then(response => {
+    const chunks = await Promise.all(parts.map(part => fetch(`./assets/logo/chunk_${part}.txt`, { cache: 'force-cache' }).then(response => {
       if (!response.ok) throw new Error('Logo chunk unavailable');
       return response.text();
     })));
@@ -156,14 +143,11 @@ async function loadLogo() {
       if (image) image.src = src;
     });
   } catch {
-    // Keep the accessible placeholder if an asset is unavailable.
+    // The visible SVG fallback stays in place.
   }
 }
 loadLogo();
 
-// PWA service worker
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(() => {});
-  });
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(() => {}));
 }
