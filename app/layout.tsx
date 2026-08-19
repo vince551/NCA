@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "The digital chamber for Kenya's children: representation, Assembly business, leadership, sessions, rights and participation.",
   applicationName: "KCA — Kenya Children Assembly",
   manifest: "/manifest.webmanifest",
-  icons: { icon: "/logo.jpg", apple: "/logo.jpg" },
+  icons: { icon: "/logo.png", apple: "/logo.png" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
