@@ -1,48 +1,72 @@
-# 🇰🇪 Kenya Children Assembly — NCA
+# Kenya Children Assembly — Digital Chamber
 
-**Sauti Yako • Your Voice**
+A premium, Assembly-first digital platform for the **Kenya Children Assembly (NCA)**.
 
-A modern, mobile-first digital home for the Kenya Children Assembly. The experience is intentionally built around the Assembly itself — representation, participation, children's rights, leadership, events, civic learning and responsible advocacy.
+## Vision
 
-## What is inside
+NCA is designed as a digital civic institution rather than a brochure website: a public chamber for representation, Assembly business, leadership, county voices, sessions, resources and safe participation.
 
-- Assembly-first homepage and navigation
-- Interactive **Inside the Assembly** area
-- Children's rights centre
-- Leadership directory foundation
-- Assembly calendar/events area
-- Searchable resource centre with filters
-- Safe **Speak Up** interface that does not transmit sensitive reports
-- Responsive mobile navigation
-- PWA manifest and offline service worker
-- GitHub Pages deployment workflow
-- Uploaded NCA emblem used throughout the interface
+## Modern stack
 
-## Technology
+- **Next.js App Router** — full-stack React foundation and Vercel-native deployment
+- **TypeScript** — typed application architecture
+- **Tailwind CSS v4** — modern design system and responsive styling
+- **shadcn/ui architecture** — composable, accessible UI direction
+- **Lucide React** — consistent interface iconography
+- **Supabase-ready** — PostgreSQL, authentication and Row Level Security foundation for the production data layer
+- **PWA** — installable experience with offline shell
+- **Vercel** — production hosting and preview deployments
 
-- HTML5
-- Modern responsive CSS
-- Vanilla JavaScript ES modules
-- Web App Manifest
-- Service Worker / offline caching
-- GitHub Actions + GitHub Pages
+Next.js + Tailwind + shadcn/ui is a current supported workflow, and Supabase provides an SSR-compatible integration for Next.js authentication and server/client data access. citeturn0search2turn0search3
 
-## Architecture
+## Product areas
 
-The public site is intentionally dependency-light so it can deploy reliably to GitHub Pages. The next production layer can add an authenticated backend for verified Assembly records, leadership profiles, motions, events, moderation and safeguarding workflows.
+- Assembly chamber
+- Motions & resolutions
+- Questions & statements
+- Debates & public records
+- Committees & working groups
+- Leadership & representation
+- 47-county network
+- Sessions & events
+- Civic and children's-rights resources
+- Safeguarding-first participation layer
 
-**Important:** the public demo does not claim to securely receive or store sensitive reports. Any real safeguarding/reporting workflow should be implemented with appropriate access controls, retention rules and verified safeguarding procedures before launch.
-
-## Local preview
-
-From the repository root, serve the `site/` directory with any static HTTP server:
+## Run locally
 
 ```bash
-python3 -m http.server 8000 --directory site
+npm install
+npm run dev
 ```
 
-Then open `http://localhost:8000`.
+Open `http://localhost:3000`.
+
+Production build:
+
+```bash
+npm run build
+npm start
+```
+
+## Environment
+
+Supabase variables will be added when the production data layer is connected:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+```
+
+The public site deliberately does **not** claim that sensitive safeguarding submissions are secure until the authenticated backend, access controls, escalation workflow and data-protection model are implemented.
 
 ## Deployment
 
-Pushes to `main` run `.github/workflows/pages.yml`, which publishes the `site/` directory through GitHub Pages.
+The repository is structured for **Vercel**. The project should be deployed from the repository root; no static `site/` output directory is required.
+
+## Brand
+
+The Kenya Children Assembly emblem is used as the primary visual identity across the header, hero, leadership area, footer, favicon and PWA manifest.
+
+---
+
+**Sauti Yako • Your Voice** 🇰🇪
