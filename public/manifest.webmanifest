@@ -1,0 +1,14 @@
+{
+  "name": "Kenya Children Assembly",
+  "short_name": "NCA",
+  "description": "The digital chamber for Kenya's children.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#07120f",
+  "theme_color": "#07120f",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/nca-emblem.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
