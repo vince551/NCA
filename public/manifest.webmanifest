@@ -1,6 +1,6 @@
 {
-  "name": "Kenya Children Assembly",
-  "short_name": "NCA",
+  "name": "KCA — Kenya Children Assembly",
+  "short_name": "KCA",
   "description": "The digital chamber for Kenya's children.",
   "start_url": "/",
   "scope": "/",
@@ -9,6 +9,6 @@
   "theme_color": "#07120f",
   "orientation": "portrait-primary",
   "icons": [
-    { "src": "/nca-emblem.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+    { "src": "/logo.jpg", "sizes": "401x401", "type": "image/jpeg", "purpose": "any maskable" }
   ]
 }
