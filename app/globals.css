@@ -28,7 +28,33 @@ a { color: inherit; text-decoration: none; }
 .gold-gradient { background: linear-gradient(135deg,#f2d48c,#c78b1c); }
 .section-light { background: var(--paper); color: var(--ink); }
 .section-dark { background: #081411; }
-.card { border: 1px solid rgba(7,18,15,.1); background: rgba(255,255,255,.72); box-shadow: 0 20px 60px rgba(7,18,15,.08); }
-.dark-card { border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.045); }
+.card { border: 1px solid rgba(7,18,15,.1); background: rgba(255,255,255,.78); box-shadow: 0 20px 60px rgba(7,18,15,.08); transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease; }
+.card:hover { border-color: rgba(8,120,63,.22); box-shadow: 0 28px 80px rgba(7,18,15,.13); }
+.dark-card { position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,.09); background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.025)); box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 24px 70px rgba(0,0,0,.22); transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease, background .3s ease; }
+.dark-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 2px; background: linear-gradient(90deg, transparent, rgba(214,155,37,.85), transparent); opacity: .8; }
+.dark-card:hover { transform: translateY(-5px); border-color: rgba(214,155,37,.25); box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 34px 90px rgba(0,0,0,.3); }
 
-@media (max-width: 700px) { .container { width: min(100% - 24px, 1180px); } }
+/* Premium Assembly session cards */
+#sessions { position: relative; overflow: hidden; background: radial-gradient(circle at 85% 10%, rgba(214,155,37,.08), transparent 28%), #081411; }
+#sessions::before { content: ""; position: absolute; width: 520px; height: 520px; right: -220px; top: -220px; border: 1px solid rgba(214,155,37,.09); border-radius: 50%; box-shadow: 0 0 0 70px rgba(214,155,37,.018), 0 0 0 140px rgba(214,155,37,.012); pointer-events: none; }
+#sessions .container { position: relative; z-index: 1; }
+#sessions .dark-card { min-height: 285px; display: flex; flex-direction: column; justify-content: space-between; padding: 1.6rem; border-radius: 28px; background: linear-gradient(150deg, rgba(255,255,255,.075) 0%, rgba(255,255,255,.035) 55%, rgba(214,155,37,.035) 100%); }
+#sessions .dark-card:nth-child(1) { border-color: rgba(214,155,37,.28); background: linear-gradient(145deg, rgba(214,155,37,.13), rgba(255,255,255,.035) 58%); }
+#sessions .dark-card:nth-child(2) { border-color: rgba(8,120,63,.25); }
+#sessions .dark-card:nth-child(3) { border-color: rgba(189,23,34,.22); }
+#sessions .dark-card::after { content: ""; position: absolute; width: 120px; height: 120px; right: -45px; bottom: -55px; border-radius: 50%; border: 1px solid rgba(255,255,255,.07); box-shadow: 0 0 0 22px rgba(255,255,255,.018); pointer-events: none; }
+#sessions .dark-card > div:first-child { min-height: 62px; }
+#sessions .dark-card > div:first-child > span:first-child { display: grid; width: 48px; height: 48px; place-items: center; border: 1px solid rgba(255,255,255,.1); border-radius: 14px; background: rgba(0,0,0,.18); color: rgba(255,255,255,.38); font-size: 14px; letter-spacing: .08em; }
+#sessions .dark-card > div:first-child > span:last-child { padding: .45rem .7rem; border: 1px solid rgba(214,155,37,.2); border-radius: 999px; background: rgba(214,155,37,.07); }
+#sessions .dark-card h3 { max-width: 230px; font-size: 1.28rem; line-height: 1.15; letter-spacing: -.025em; }
+#sessions .dark-card p { max-width: 300px; }
+
+@media (max-width: 700px) {
+  .container { width: min(100% - 24px, 1180px); }
+  #sessions .dark-card { min-height: 250px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .card, .dark-card { transition: none; }
+}
