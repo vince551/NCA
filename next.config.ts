@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/logo.jpg",
-        destination: "/nca-emblem.svg",
+        destination: "/logo.png",
         permanent: true,
       },
     ];
