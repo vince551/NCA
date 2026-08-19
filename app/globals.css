@@ -13,14 +13,17 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--ink); color: #f7f8f6; font-family: Arial, Helvetica, sans-serif; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { margin: 0; min-width: 320px; max-width: 100%; overflow-x: hidden; background: var(--ink); color: #f7f8f6; font-family: Arial, Helvetica, sans-serif; }
+img, svg, video { max-width: 100%; }
+img { height: auto; }
 a { color: inherit; text-decoration: none; }
+button, a, summary { -webkit-tap-highlight-color: transparent; }
 ::selection { background: var(--gold); color: var(--ink); }
 
 .container { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
 .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--gold-soft); font-size: .72rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
-.eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--gold); }
+.eyebrow::before { content: ""; flex: 0 0 24px; width: 24px; height: 1px; background: var(--gold); }
 
 .hero-grid { background: radial-gradient(circle at 78% 25%, rgba(214,155,37,.15), transparent 27%), radial-gradient(circle at 15% 90%, rgba(8,120,63,.16), transparent 30%), linear-gradient(135deg,#07120f,#0c1b16 58%,#07120f); }
 .grid-overlay { background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 48px 48px; mask-image: linear-gradient(to bottom, black, transparent); }
@@ -49,9 +52,57 @@ a { color: inherit; text-decoration: none; }
 #sessions .dark-card h3 { max-width: 230px; font-size: 1.28rem; line-height: 1.15; letter-spacing: -.025em; }
 #sessions .dark-card p { max-width: 300px; }
 
+/* Mobile-first polish */
+@media (max-width: 1023px) {
+  .container { width: min(100% - 32px, 1180px); }
+  header .container { min-height: 68px; }
+}
+
 @media (max-width: 700px) {
-  .container { width: min(100% - 24px, 1180px); }
-  #sessions .dark-card { min-height: 250px; }
+  .container { width: calc(100% - 24px); }
+  .eyebrow { font-size: .62rem; letter-spacing: .14em; }
+  .eyebrow::before { flex-basis: 18px; width: 18px; }
+  header .container { gap: 10px; }
+  header a.flex { min-width: 0; gap: 10px; }
+  header a.flex > div:last-child { min-width: 0; }
+  header a.flex > div:last-child > div { overflow-wrap: anywhere; }
+  header .rounded-full { flex-shrink: 0; }
+  #home .container { min-height: auto; gap: 42px; padding-top: 64px; padding-bottom: 64px; }
+  #home h1 { max-width: 100%; font-size: clamp(2.7rem, 13vw, 4rem); line-height: .94; letter-spacing: -.055em; }
+  #home p { font-size: .98rem; line-height: 1.7; }
+  #home .flex.flex-wrap { flex-direction: column; align-items: stretch; }
+  #home .flex.flex-wrap a { justify-content: center; width: 100%; text-align: center; }
+  #home .grid-cols-2 { gap: 12px 8px; }
+  #home .glass { width: 100%; padding: 12px; border-radius: 28px; }
+  #home .glass > div:first-child { gap: 8px; padding-inline: 6px; }
+  #home .glass > div:first-child > span { white-space: nowrap; font-size: 8px; }
+  #home .glass .aspect-square { padding: 18px; }
+  #home .glass .aspect-square > div { padding: 10px; }
+  #home .glass .aspect-square img { width: min(210px, 58vw) !important; height: auto !important; }
+  #home .glass .aspect-square > div > div { inset: 5px; }
+  #home .glass .grid-cols-3 strong { font-size: 1rem; }
+  #home .glass .grid-cols-3 div { min-width: 0; }
+  #home .glass .grid-cols-3 div div { overflow-wrap: anywhere; }
+  section .container { min-width: 0; }
+  .section-light, .section-dark { overflow: hidden; }
+  .card, .dark-card { min-width: 0; }
+  .dark-card:hover, .card:hover { transform: none; }
+  #sessions .dark-card { min-height: 230px; padding: 1.25rem; border-radius: 24px; }
+  #sessions .dark-card h3 { font-size: 1.15rem; }
+  #sessions .dark-card p { font-size: .82rem; line-height: 1.5; }
+}
+
+@media (max-width: 420px) {
+  .container { width: calc(100% - 20px); }
+  header .container { height: 64px; }
+  header a.flex > div:first-child { padding: 3px; }
+  header a.flex > div:first-child img { width: 38px !important; height: 38px !important; }
+  header a.flex > div:last-child > div:first-child { font-size: 10px; }
+  header a.flex > div:last-child > div:nth-child(2) { font-size: 9px; letter-spacing: .08em; }
+  #home .container { padding-top: 52px; padding-bottom: 52px; }
+  #home .glass .aspect-square img { width: min(180px, 55vw) !important; }
+  #home .glass .grid-cols-3 div div { font-size: 7px; letter-spacing: .08em; }
+  #counties .text-8xl { font-size: 5rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
