@@ -9,6 +9,6 @@
   "theme_color": "#07120f",
   "orientation": "portrait-primary",
   "icons": [
-    { "src": "/logo.jpg", "sizes": "401x401", "type": "image/jpeg", "purpose": "any maskable" }
+    { "src": "/logo.png", "sizes": "401x401", "type": "image/png", "purpose": "any maskable" }
   ]
 }
